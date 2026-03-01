@@ -4,8 +4,24 @@ import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
 import '../css/app.css';
 import { initializeTheme } from '@/composables/useAppearance';
+import PrimeVue from 'primevue/config';
+import Aura from '@primeuix/themes/aura';
+import { definePreset, palette } from '@primeuix/themes';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+
+const MyPreset = definePreset(Aura, {
+    semantic: {
+        colorScheme: {
+            light: {
+                primary: palette('#D4AF37')
+            },
+            dark: {
+                primary: palette('#D4AF37')
+            }
+        }
+    }
+});
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
@@ -17,8 +33,14 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
             .use(plugin)
+            .use(PrimeVue, {
+                theme: {
+                    preset: MyPreset,
+                }
+            })
             .mount(el);
     },
+
     progress: {
         color: '#4B5563',
     },
