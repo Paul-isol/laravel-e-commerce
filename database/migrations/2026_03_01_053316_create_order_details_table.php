@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignIdFor('payment_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('payment_id')->constrained('payment_details')->cascadeOnDelete();
             $table->decimal('total', 10, 2);
             $table->timestamps();
         });

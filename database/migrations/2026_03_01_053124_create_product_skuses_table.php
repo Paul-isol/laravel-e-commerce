@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('product_skuses', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor('product_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             // take color and size from product attributes
-            $table->foreignIdFor('color_id')->constrained()->cascadeOnDelete();
-            $table->foreignIdFor('size_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('color_id')->constrained('product_attributes')->cascadeOnDelete();
+            $table->foreignId('size_id')->constrained('product_attributes')->cascadeOnDelete();
             $table->string('sku')->nullable();
             $table->decimal('price', 10, 2);
             $table->integer('stock')->default(0);
